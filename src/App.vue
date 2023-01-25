@@ -12,6 +12,17 @@ import HelloWorld from './components/HelloWorld.vue'
     </a>
   </div>
   <HelloWorld msg="Vite + Vue" />
+	<div id="nav">
+		<router-link to="/">Home</router-link> |
+		<router-link to="/about">About</router-link> |
+		<router-link to="/user/10">User</router-link> |
+		<router-link to="/task/start/add/12/0">Page.add</router-link> |
+		<router-link to="/task/start/10/upd/5">Page.upd</router-link> |
+		<router-link to="/task/list">List</router-link>
+		<!--		<router-link to="/task/list">taskList</router-link> |-->
+		<!--		<router-link to="/task/start/10/add">taskStartAdd</router-link>-->
+	</div>
+	<router-view />
 </template>
 
 <style scoped>
