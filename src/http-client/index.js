@@ -1,6 +1,6 @@
 export default class httpClient
 {
-	static get(url, data, callback)
+	static get(url, queryString)
 	{
 		return new Promise((resolve, reject) =>
 		{
@@ -15,7 +15,7 @@ export default class httpClient
 				}
 			};
 
-			let queryString = '';
+			// let queryString = '';
 			if (typeof data === 'object')
 			{
 				for (let propertyName in data)
