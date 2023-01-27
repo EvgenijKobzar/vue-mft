@@ -1,4 +1,3 @@
-import {PresetModel} from "../model/preset-model.js";
 import Type from "../type.js";
 import Text from "../text.js";
 import Rest from "../provider/rest.js";
@@ -123,5 +122,10 @@ export default class Collection
 		this.#map.clear();
 
 		return this;
+	}
+
+	getValues()
+	{
+		return this.#map.values();
 	}
 }
