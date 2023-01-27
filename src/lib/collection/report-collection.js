@@ -8,8 +8,13 @@ export default class ReportCollection extends Collection
 		return ReportModel;
 	}
 
-	getRestCmd()
+	getRestCmdList()
 	{
 		return 'mft.report.list';
+	}
+
+	getRestCmdAdd()
+	{
+		return 'mft.report.add';
 	}
 }

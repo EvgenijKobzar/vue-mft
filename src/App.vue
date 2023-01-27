@@ -8,9 +8,9 @@ const el = ref()
 
 onMounted(() => {
 	return new Promise((resolve, reject) => {
-		collection.refreshByFilter({filter: {active: 'Y'}})
+		collection.refreshByFilter()
 		.then(() => {
-			el.value = collection.getValues();
+			console.log('count', collection.count());
 			console.log('preset-2', collection.getFieldsById(2));
 			resolve();
 		});

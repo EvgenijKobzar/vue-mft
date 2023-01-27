@@ -11,11 +11,26 @@ export default class Collection
 		new Error('ModelClass is not implemented')
 	}
 
-	getRestCmd()
+	getRestCmdList()
 	{
-		new Error('Method is not specified')
+		new Error('Method - List is not specified')
 	}
 
+	getRestCmdAdd()
+	{
+		new Error('Method - add is not specified')
+	}
+
+	create(fields)
+	{
+		const cmd = this.getRestCmdAdd();
+
+		(new Rest({
+			cmd,
+			fields
+		}))
+		.then(() => this.refreshByFilter())
+	}
 	init(map)
 	{
 		this.clear();
@@ -43,35 +58,33 @@ export default class Collection
 		});
 	}
 
-	refreshByFilter(filter)
+	refreshByFilter(filter = {})
 	{
 		return new Promise((resolve, reject) =>
 		{
-			const cmd = this.getRestCmd()
+			const cmd = this.getRestCmdList();
 
-			if(Object.keys(filter).length <= 0)
-			{
-				return Promise.reject({
-					status: 'error',
-					errors: [
-						'filter is not set'
-					],
-				});
-			}
+			// if(Object.keys(filter).length <= 0)
+			// {
+			// 	return Promise.reject({
+			// 		status: 'error',
+			// 		errors: [
+			// 			'filter is not set'
+			// 		],
+			// 	});
+			// }
 
 			(new Rest({
 				cmd,
-				filter: {
-					active: 'Y'
-				}
+				filter
 			}))
 			.then((result) =>
 			{
-				let presets = result.data.result.presets ?? null;
+				let items = result.data.result.reports ?? null;
 
-				if (Type.isArrayFilled(presets))
+				if (Type.isArrayFilled(items))
 				{
-					this.init(presets);
+					this.init(items);
 					this.#onChangeData();
 				}
 
@@ -122,10 +135,5 @@ export default class Collection
 		this.#map.clear();
 
 		return this;
-	}
-
-	getValues()
-	{
-		return this.#map.values();
 	}
 }
