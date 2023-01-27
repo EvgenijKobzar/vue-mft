@@ -9,7 +9,7 @@ import ReportCollection from "./lib/collection/report-collection.js";
 
 library.add(faPlus)
 
-const collection = new ReportCollection();
+// const collection = new ReportCollection();
 
 // collection.create({
 // 	code: 'task',

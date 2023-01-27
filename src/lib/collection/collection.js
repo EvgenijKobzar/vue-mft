@@ -6,6 +6,11 @@ export default class Collection
 {
 	#map = new Map();
 
+	getModels()
+	{
+		return this.#map.values();
+	}
+
 	getModelClass()
 	{
 		new Error('ModelClass is not implemented')
@@ -85,18 +90,12 @@ export default class Collection
 				if (Type.isArrayFilled(items))
 				{
 					this.init(items);
-					this.#onChangeData();
 				}
 
 				resolve()
 			})
 			.catch(reject)
 		});
-	}
-
-	#onChangeData()
-	{
-		// EventEmitter.emit(this,'PresetModel.Collection:onChangeData');
 	}
 
 	getById(id)

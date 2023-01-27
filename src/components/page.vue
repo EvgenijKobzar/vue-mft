@@ -5,5 +5,5 @@ import router from '../router'
 </script>
 
 <template>
-	<h1>The user is {{ $route.params.presetCode }} - {{ $route.params.action }}</h1>
+	<h1>The user is {{ $route.params.presetCode }} - list</h1>
 </template>

@@ -1,30 +1,48 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import ReportCollection from "./lib/collection/report-collection.js";
 
-const collection = new ReportCollection();
 
-const el = ref()
+const items = ref([]);
+const types = ref([
+	'add',
+	'upd',
+	'get',
+	'list'
+]);
+const collection = new ReportCollection();
 
 onMounted(() => {
 	return new Promise((resolve, reject) => {
-		collection.refreshByFilter()
-		.then(() => {
-			console.log('count', collection.count());
-			console.log('preset-2', collection.getFieldsById(2));
-			resolve();
-		});
+		collection.refreshByFilter({active: 'Y'})
+			.then(() => {
+
+				const list = [];
+					for (let model of collection.getModels())
+					{
+						list.push(model.getField('code'))
+					}
+
+				items.value = list
+
+				resolve();
+			});
 	})
 })
+
+function makeUrl(item, type)
+{
+	return '/' + item + '/' + type;
+}
+
 </script>
 
 
 <template>
 	<div id="nav">
-		{{el}}
-		<router-link to="/task/12/add">Page.add</router-link> |
-		<router-link to="/task/10/upd">Page.upd</router-link> |
-		<router-link to="/task/list">List</router-link>
+		<div v-for="(item, i) in items">
+			<router-link :to="makeUrl(item, type)" v-for="(type, i) in types" > {{item}} {{type}} | </router-link> |
+		</div>
 	</div>
 	<router-view />
 </template>
