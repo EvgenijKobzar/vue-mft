@@ -5,12 +5,11 @@ import App from './App.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import axios from "axios";
+import {PresetCollection} from "./lib/collection/preset-collection.js";
 
 library.add(faPlus)
 
-const endpoint = 'http://m.ft24.ru/rest'
-const cmd = '/mft.preset.getFields'
+
 // const cmd = 'mft.preset.add'
 // httpClient.get( endpoint + cmd, 'fields[code]=task&fields[type]=system&fields[active]=Y')
 // httpClient.get( endpoint + cmd, 'fields[code]=cargo&fields[type]=system&fields[active]=Y')
@@ -18,26 +17,17 @@ const cmd = '/mft.preset.getFields'
 // httpClient.get( endpoint + cmd, 'fields[code]=fuel&fields[type]=system&fields[active]=Y')
 	// .then((result) => console.log(result));
 
-// axios({
-// 	method: 'get',
-// 	baseURL: endpoint,
-// 	url: cmd,
-// 	params: {
-// 		fields: {
-// 			code: 'task',
-// 			type: 'system',
-// 			active: 'Y',
-// 		}
-// 	}
-// })
-// .then(function (response) {
-// 	// обработка успешного запроса
-// 	console.log(response);
-// })
-// .catch(function (error) {
-// 	// обработка ошибки
-// 	console.log(error);
-// })
+
+// (new PresetCollection())
+// 	.refreshByFilter({filter: {active: 'Y'}})
+// 		.then(function (response) {
+// 			// обработка успешного запроса
+// 			console.log(response);
+// 		})
+// 		.catch(function (error) {
+// 			// обработка ошибки
+// 			console.log(error);
+// 		})
 
 
 
