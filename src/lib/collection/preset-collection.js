@@ -5,9 +5,9 @@ import Rest from "../provider/rest.js";
 
 export default class PresetCollection
 {
-	#map: Map = new Map();
+	#map = new Map();
 
-	init(map: {})
+	init(map)
 	{
 		this.clear();
 
@@ -18,7 +18,9 @@ export default class PresetCollection
 				let model = new PresetModel({
 					fields : {
 						id : Text.toNumber(item.id),
-						title: item.title.toString(),
+						code: item.code.toString(),
+						type: item.type.toString(),
+						active: item.active.toString(),
 					},
 				});
 
@@ -30,7 +32,7 @@ export default class PresetCollection
 		});
 	}
 
-	refreshByFilter(filter: {}): Promise
+	refreshByFilter(filter)
 	{
 		return new Promise((resolve, reject) =>
 		{
@@ -46,14 +48,15 @@ export default class PresetCollection
 				});
 			}
 
-			Rest({
+			(new Rest({
 				cmd,
 				filter: {
-					active: 'Y'}
-			})
+					active: 'Y'
+				}
+			}))
 			.then((result) =>
 			{
-				let presets = result.data.presets ?? null;
+				let presets = result.data.result.presets ?? null;
 
 				if (Type.isArrayFilled(presets))
 				{
@@ -72,7 +75,7 @@ export default class PresetCollection
 		// EventEmitter.emit(this,'PresetModel.Collection:onChangeData');
 	}
 
-	getById(id): ?PresetModel
+	getById(id)
 	{
 		for (let model of this.#map.values())
 		{
@@ -83,17 +86,17 @@ export default class PresetCollection
 		}
 	}
 
-	getFieldsById(id): any
+	getFieldsById(id)
 	{
 		return this.getById(id)?.getFields() || 0;
 	}
 
-	getByIndex(index): ?Model
+	getByIndex(index)
 	{
 		return this.#map.get(Text.toNumber(index))
 	}
 
-	getFieldsByIndex(index): any
+	getFieldsByIndex(index)
 	{
 		return this.getByIndex(index)?.getFields() || 0;
 	}
@@ -103,7 +106,7 @@ export default class PresetCollection
 		return this.#map.size;
 	}
 
-	clear(): PresetCollection
+	clear()
 	{
 		this.#map.clear();
 

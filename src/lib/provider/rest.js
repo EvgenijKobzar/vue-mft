@@ -3,16 +3,16 @@ import axios from "axios";
 export default class Rest
 {
 	#endpoint = 'http://m.ft24.ru/rest';
-	constructor(options): Promise
+	constructor(options)
 	{
-		let {cmd, fields} = options;
+		let {cmd, filter} = options;
 
 		return axios({
 			method: 'get',
 			baseURL: this.#endpoint,
 			url: cmd,
 			params: {
-				fields
+				filter
 			}
 		})
 	}

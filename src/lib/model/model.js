@@ -1,3 +1,4 @@
+import Type from "../type.js";
 import ErrorCollection from "../collection/error-collection.js";
 import FieldCollection from "../collection/field-collection.js";
 
@@ -7,35 +8,42 @@ export default class Model
 	#fieldCollection = null;
 	#errorCollection = null;
 
-	constructor()
+	constructor(options)
 	{
+		this.options = options || {};
+
 		this.#errorCollection = new ErrorCollection(this);
 		this.#fieldCollection = new FieldCollection(this);
+
+		if (Type.isObject(options.fields))
+		{
+			this.initFields(options.fields, false);
+		}
 	}
 
-	getErrorCollection(): ErrorCollection
+	getErrorCollection()
 	{
 		return this.#errorCollection;
 	}
 
-	getFields(): {}
+	getFields()
 	{
 		return this.#fieldCollection.getFields();
 	}
 
-	getField(fieldName: string): any
+	getField(fieldName)
 	{
 		return this.#fieldCollection.getField(fieldName);
 	}
 
-	setField(fieldName: string, value: any): Model
+	setField(fieldName, value)
 	{
 		this.#fieldCollection.setField(fieldName, value);
 
 		return this;
 	}
 
-	setFields(fields): Model
+	setFields(fields)
 	{
 		Object.keys(fields).forEach((key) => {
 			this.setField(key, fields[key]);
@@ -44,21 +52,21 @@ export default class Model
 		return this;
 	}
 
-	initFields(fields: {}): Model
+	initFields(fields)
 	{
 		this.#fieldCollection.initFields(fields);
 
 		return this;
 	}
 
-	removeField(fieldName): Model
+	removeField(fieldName)
 	{
 		this.#fieldCollection.removeField(fieldName);
 
 		return this;
 	}
 
-	isChanged(): boolean
+	isChanged()
 	{
 		return this.#fieldCollection.isChanged();
 	}

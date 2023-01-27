@@ -1,49 +1,48 @@
-import Model from "../model/model.js";
-
+import Type from "../type.js";
 export default class FieldCollection
 {
-	changedFields: Map = new Map();
-	fields: Map = new Map();
+	#changedFields = new Map();
+	#fields = new Map();
 
-	model: Model;
+	#model = null;
 
-	constructor(model: Model = {})
+	constructor(model)
 	{
-		this.model = model;
+		this.#model = model;
 	}
 
-	getFields(): {}
+	getFields()
 	{
-		return Object.fromEntries(this.fields);
+		return Object.fromEntries(this.#fields);
 	}
 
-	getField(fieldName: string): any
+	getField(fieldName)
 	{
-		return this.fields.get(fieldName);
+		return this.#fields.get(fieldName);
 	}
 
-	setField(fieldName: string, value: any): FieldCollection
+	setField(fieldName, value)
 	{
-		const oldValue = this.fields.get(fieldName);
-		this.fields.set(fieldName, value);
-		if (!this.changedFields.has(fieldName) && oldValue !== value)
+		const oldValue = this.#fields.get(fieldName);
+		this.#fields.set(fieldName, value);
+		if (!this.#changedFields.has(fieldName) && oldValue !== value)
 		{
-			this.changedFields.set(fieldName, oldValue);
+			this.#changedFields.set(fieldName, oldValue);
 		}
 
 		return this;
 	}
 
-	isChanged(): boolean
+	isChanged()
 	{
-		return (this.changedFields.size > 0);
+		return (this.#changedFields.size > 0);
 	}
 
-	clearChanged(savingFieldNames: [] = null): FieldCollection
+	clearChanged(savingFieldNames = null)
 	{
 		if (Type.isNil(savingFieldNames))
 		{
-			this.changedFields.clear();
+			this.#changedFields.clear();
 		}
 		else
 		{
@@ -55,19 +54,19 @@ export default class FieldCollection
 		return this;
 	}
 
-	removeFromChanged(fieldName): FieldCollection
+	removeFromChanged(fieldName)
 	{
-		this.changedFields.delete(fieldName);
+		this.#changedFields.delete(fieldName);
 
 		return this;
 	}
 
-	getChangedFields(): {}
+	getChangedFields()
 	{
 		const changedFieldValues = {};
 
-		this.fields.forEach((value, key) => {
-			if (this.changedFields.has(key))
+		this.#fields.forEach((value, key) => {
+			if (this.#changedFields.has(key))
 			{
 				changedFieldValues[key] = value;
 			}
@@ -76,25 +75,25 @@ export default class FieldCollection
 		return {...changedFieldValues};
 	}
 
-	getChangedValues(): {}
+	getChangedValues()
 	{
 		const changedFieldValues = {};
 
-		this.changedFields.forEach((value, key) => {
+		this.#changedFields.forEach((value, key) => {
 			changedFieldValues[key] = value;
 		})
 
 		return {...changedFieldValues};
 	}
 
-	initFields(fields): FieldCollection
+	initFields(fields)
 	{
-		this.fields.clear();
+		this.#fields.clear();
 		this.clearChanged();
 		if (Type.isObject(fields))
 		{
 			Object.keys(fields).forEach((key) => {
-				this.fields.set(key, fields[key])
+				this.#fields.set(key, fields[key])
 			});
 		}
 

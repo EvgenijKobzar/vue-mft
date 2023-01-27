@@ -1,13 +1,11 @@
-import Model from "../model/model.js";
-
 export default class ErrorCollection
 {
-	errors: Map = new Map();
-	model: Model;
+	#errors = new Map();
+	#model = null;
 
-	constructor(model: Model = {})
+	constructor(model)
 	{
-		this.model = model;
+		this.#model = model;
 	}
 
 	getErrors()
@@ -15,38 +13,38 @@ export default class ErrorCollection
 		return Object.fromEntries(this.errors);
 	}
 
-	setError(code: string, text: string): ErrorCollection
+	setError(code, text)
 	{
-		this.errors.set(code, {
+		this.#errors.set(code, {
 			code,
 			text
 		});
-		this.model.onErrorCollectionChange();
+		this.#model.onErrorCollectionChange();
 
 		return this;
 	}
 
-	removeError(code: string): ErrorCollection
+	removeError(code)
 	{
-		if (this.errors.has(code))
+		if (this.#errors.has(code))
 		{
-			this.errors.delete(code);
+			this.#errors.delete(code);
 		}
-		this.model.onErrorCollectionChange();
+		this.#model.onErrorCollectionChange();
 
 		return this;
 	}
 
-	clearErrors(): ErrorCollection
+	clearErrors()
 	{
-		this.errors.clear();
-		this.model.onErrorCollectionChange();
+		this.#errors.clear();
+		this.#model.onErrorCollectionChange();
 
 		return this;
 	}
 
 	hasErrors()
 	{
-		return this.errors.size > 0;
+		return this.#errors.size > 0;
 	}
 }

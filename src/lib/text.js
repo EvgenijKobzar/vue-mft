@@ -2,7 +2,7 @@ import Type from "./type.js";
 
 export default class Text
 {
-	static toNumber(value: any): number
+	static toNumber(value)
 	{
 		const parsedValue = Number.parseFloat(value);
 
