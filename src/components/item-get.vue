@@ -1,11 +1,8 @@
 <template>
-	<h1>The user is {{ $route.params.presetCode }} - get {{$route.query.id }}</h1>
+	<h1> get </h1>
 </template>
 
-<script>
-export default {
-	name: "item-get"
-}
+<script setup>
 </script>
 
 <style scoped>

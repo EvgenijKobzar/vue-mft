@@ -4,10 +4,10 @@ import './style.css'
 import App from './App.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import ReportCollection from "./lib/collection/report-collection.js";
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
+//import ReportCollection from "./lib/collection/report-collection.js";
 
-library.add(faPlus)
+library.add(faCirclePlus)
 
 // const collection = new ReportCollection();
 

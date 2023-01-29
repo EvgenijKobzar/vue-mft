@@ -1,11 +1,8 @@
 <template>
-	<h1>The user is {{ $route.params.presetCode }} - upd </h1>
+	<h1> upd </h1>
 </template>
 
-<script>
-export default {
-	name: "item-upd"
-}
+<script setup>
 </script>
 
 <style scoped>

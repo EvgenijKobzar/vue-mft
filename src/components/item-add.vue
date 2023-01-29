@@ -1,10 +1,14 @@
 <template>
-	<h1>The user is {{ $route.params.presetCode }} - add </h1>
+	<h1 @click="list"> add </h1>
 </template>
 
-<script>
-export default {
-	name: "item-add"
+<script setup>
+import {useRouter} from "vue-router";
+const router = useRouter();
+
+function list()
+{
+	router.push({ path: 'list' });
 }
 </script>
 
