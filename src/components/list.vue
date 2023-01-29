@@ -1,6 +1,11 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
 import { watch, ref } from 'vue'
+import EventEmitter from 'event-emitter-es6'
+
+// const emitter = new EventEmitter();
+// emitter.on('some-event', (e) => console.log('some-event', e))
+// emitter.emit('some-event', {data: '11'})
 
 const route = useRoute();
 const router = useRouter();
