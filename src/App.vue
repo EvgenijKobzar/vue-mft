@@ -40,11 +40,11 @@ import {
 	Legend,
 	BarElement,
 	CategoryScale,
-	LinearScale
+	LinearScale, LineElement, PointElement
 } from 'chart.js'
 import { Bar, Line } from 'vue-chartjs'
 import Rest from "./lib/provider/rest.js";
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, LineElement, PointElement)
 
 const state = reactive({
 	status: 'wait',
@@ -94,6 +94,26 @@ const state = reactive({
 				}
 			}
 		}
+	},
+	data2: {
+		labels: [],
+		datasets: [
+			{
+				label: 'Расход л/моточас',
+				data: [],
+				borderColor: 'crimson',
+				borderWidth: 5,
+				backgroundColor: 'crimson',
+				cubicInterpolationMode: 'monotone',
+			}
+		],
+	},
+	options2: {
+		scales: {
+			y: {
+				beginAtZero: true
+			}
+		}
 	}
 })
 
@@ -121,8 +141,10 @@ onMounted(()=> {
 
 			state.data.labels = labels;
 			state.data1.labels = labels1;
-			state.data.datasets[0].data = datasets
-			state.data1.datasets[0].data = datasets1
+			state.data2.labels = labels1;
+			state.data.datasets[0].data = datasets;
+			state.data1.datasets[0].data = datasets1;
+			state.data2.datasets[0].data = datasets1;
 
 			console.log('state', state)
 			state.status = 'none';
@@ -149,6 +171,7 @@ onMounted(()=> {
 
 	<div><Bar :data="state.data" :options="state.options" v-if="state.status === 'none'"/></div>
 	<div><Bar :data="state.data1" :options="state.options1" v-if="state.status === 'none'"/></div>
+	<div><Line :data="state.data2" :options="state.options2" v-if="state.status === 'none'"/></div>
 
 	<router-view />
 	<router-view name="navbar" />
